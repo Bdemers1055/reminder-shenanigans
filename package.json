@@ -1,0 +1,19 @@
+{
+  "name": "reminder-shenanigans",
+  "version": "1.0.0",
+  "description": "this is a CLI reminder tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bdemers1055/reminder-shenanigans.git"
+  },
+  "author": "Brittany Demers",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bdemers1055/reminder-shenanigans/issues"
+  },
+  "homepage": "https://github.com/Bdemers1055/reminder-shenanigans#readme"
+}
