@@ -34,13 +34,38 @@ if(subcommand === 'list'){
 console.log("Completed your request.");
 process.exit(0);
 
+
+// these are at the bottom purely for convention, functions hoist to the top 
 function list(){
     console.log('Here are the things you need to do:');
-        reminders.forEach((reminder, index) => {
-            const line = `-      ${reminder}    Due:${dates[index]}`;
-            console.log(line);
-        });
+    const lines = fs.readFileSync(reminderFile, 'utf8').split('\n');
+    const parsedLines = lines.map(line => line.split("|");
+    const humanFriendlyLines = parsedLines.map(parsedLine => {
+        const reminder = parsedLine[0];
+        const date = parsedLine[1];
+        return `-      ${reminder}      Due: ${date}`;    
+    });
+    const output = humanFriendlyLines.join('\n');
+    console.log(output);
+        // reminders.forEach((reminder, index) => {
+        //     const line = `-      ${reminder}    Due:${dates[index]}`;
+        //     console.log(line);
+        // });
 }
+
+function list(){
+    console.log('Here are the things that you need to do...');
+    const lines = fs.readFileSync(reminderFile, 'utf8').split('\n');
+    const parsedLines = lines.map(line => line.split("|"));
+    const humanFriendlyLines = parsedLines.map(parsedLine => {
+        const reminder = parsedLine[0];
+        const date = parsedLine[1];
+        return `-     ${reminder}           Due: ${date}`;
+    });
+    const output = humanFriendlyLines.join('\n');
+    console.log(output);
+}
+
 
 function add(){
     console.log("add");
