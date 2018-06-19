@@ -3,6 +3,37 @@ const fs = require('fs'); //this tells node that we need this module (set of fun
 
 const reminderFile = "reminders.txt";
 
+class ReminderList {
+        constructor(filepath){
+            this.filepath = filepath;
+            const lines = fs.readFileSync(reminderFile, 'utf8').split('\n');
+            const parsedLines = lines.map(line => line.split("|"));
+            const humanFriendlyLines = parsedLines.map(parsedLine => {
+                const reminder = new Reminder(parsedLine[0], parsedLine[1]);
+                return reminder;
+        });
+        this.reminders = humanFriendlyLines;
+    }
+
+    add(reminder){
+        this.reminders.push(reminder);
+    }
+
+    toFileOutput(){
+        const fileString = this.reminders.map((reminder) => reminder.toFileString());
+        const output = fileString.join('\n');
+        return output;
+    }
+
+    toConsole(){
+        const reminderStrings = this.reminders.map((reminder) => reminder.toString());
+        const output = reminderStrings.join('\n');
+        console.log(output);
+    }
+}
+
+module.exports = ReminderList;
+
 // templates of objects
 class Reminder {
     constructor(inputText, inputDueDate){
@@ -36,17 +67,10 @@ if(subcommand === 'list'){
 console.log("Completed your request.");
 process.exit(0);
 
-// these are at the bottom purely for convention, functions hoist to the top 
 function list(){
     console.log('Here are the things you need to do:');
-    const lines = fs.readFileSync(reminderFile, 'utf8').split('\n');
-    const parsedLines = lines.map(line => line.split("|"));
-    const humanFriendlyLines = parsedLines.map(parsedLine => {
-    const reminder = new Reminder(parsedLine[0], parsedLine[1]);
-    return reminder.toString();
-});
-const output = humanFriendlyLines.join('\n');
-console.log(output);
+    const reminderList = new ReminderList(reminderFile);
+    reminderList.toConsole();
 }
 
 console.log("Completed your request.");
@@ -54,16 +78,11 @@ process.exit(0);
 
 function add(addition){
     console.log("Adding a new reminder ...");
-    const lines = fs.readFileSync(reminderFile, 'utf8').split('\n');
-    const parsedLines = lines.map(line => line.split("|"));
-    const newLine = [[addition, new Date()]];
-    const withAddition = parsedLines.concat(newLine);
+    const reminderList = new ReminderList(reminderFile);
+    const reminder = new Reminder(addition, new Date());
+    reminderList.add(reminder);
+    const output = reminderList.toFileOutput();
     fs.unlinkSync(reminderFile);
-    const outputLines = withAddition.map(line => {
-        const reminder = new Reminder(line[0], line[1]);
-        return reminder.toFileString();
-    });
-    const output = outputLines.join(`\n`);
     fs.appendFileSync(reminderFile, output);
 }
 
