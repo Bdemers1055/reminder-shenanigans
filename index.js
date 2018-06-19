@@ -3,10 +3,14 @@ const fs = require('fs'); //this tells node that we need this module (set of fun
 
 const Reminder = require('./models/Reminder');
 const ReminderList = require('./models/ReminderList');
-const reminderFile = "reminders.txt";
+
+const config = require('./config');
+const reminderFile = config.reminderFile;
 
 // list command where all the reminders are printed
 // add a command where we can add a reminder
+const list = require('./commands/list');
+
 const args = process.argv.slice(2);
 const subcommand = args[0];
 if(subcommand === 'list'){
@@ -16,15 +20,6 @@ if(subcommand === 'list'){
         add(reminder);
     } else {
         help();
-}
-
-console.log("Completed your request.");
-process.exit(0);
-
-function list(){
-    console.log('Here are the things you need to do:');
-    const reminderList = new ReminderList(reminderFile);
-    reminderList.toConsole();
 }
 
 console.log("Completed your request.");
