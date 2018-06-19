@@ -10,6 +10,7 @@ const reminderFile = config.reminderFile;
 // list command where all the reminders are printed
 // add a command where we can add a reminder
 const list = require('./commands/list');
+const add = require('./commands/add');
 
 const args = process.argv.slice(2);
 const subcommand = args[0];
@@ -24,16 +25,6 @@ if(subcommand === 'list'){
 
 console.log("Completed your request.");
 process.exit(0);
-
-function add(addition){
-    console.log("Adding a new reminder ...");
-    const reminderList = new ReminderList(reminderFile);
-    const reminder = new Reminder(addition, new Date());
-    reminderList.add(reminder);
-    const output = reminderList.toFileOutput();
-    fs.unlinkSync(reminderFile);
-    fs.appendFileSync(reminderFile, output);
-}
 
 function help(){
     console.log('Something went wrong. Please check you syntax.');
