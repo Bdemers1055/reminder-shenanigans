@@ -13,6 +13,10 @@ class Reminder {
     toString(){
             return`-   ${this.text}    Due: ${this.dueDate}`;
     }
+    
+    toFileString(){
+        return`${this.text}|${this.dueDate}`;
+    }
 }
 
 
@@ -56,9 +60,8 @@ function add(addition){
     const withAddition = parsedLines.concat(newLine);
     fs.unlinkSync(reminderFile);
     const outputLines = withAddition.map(line => {
-        const reminder = line[0];
-        const date = line[1];
-        return `${reminder}|${date}`;
+        const reminder = new Reminder(line[0], line[1]);
+        return reminder.toFileString();
     });
     const output = outputLines.join(`\n`);
     fs.appendFileSync(reminderFile, output);
