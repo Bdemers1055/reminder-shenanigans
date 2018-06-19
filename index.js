@@ -1,6 +1,7 @@
 
 const fs = require('fs'); //this tells node that we need this module (set of functions and attributes)
 
+const Reminder = require('./models/Reminder');
 const reminderFile = "reminders.txt";
 
 class ReminderList {
@@ -33,23 +34,6 @@ class ReminderList {
 }
 
 module.exports = ReminderList;
-
-// templates of objects
-class Reminder {
-    constructor(inputText, inputDueDate){
-        this.text = inputText;
-        this.dueDate = inputDueDate;
-    }
-
-    toString(){
-            return`-   ${this.text}    Due: ${this.dueDate}`;
-    }
-    
-    toFileString(){
-        return`${this.text}|${this.dueDate}`;
-    }
-}
-
 
 // list command where all the reminders are printed
 // add a command where we can add a reminder
