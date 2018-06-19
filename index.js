@@ -3,6 +3,19 @@ const fs = require('fs'); //this tells node that we need this module (set of fun
 
 const reminderFile = "reminders.txt";
 
+// templates of objects
+class Reminder {
+    constructor(inputText, inputDueDate){
+        this.text = inputText;
+        this.dueDate = inputDueDate;
+    }
+
+    toString(){
+            return`-   ${this.text}    Due: ${this.dueDate}`;
+    }
+}
+
+
 // list command where all the reminders are printed
 // add a command where we can add a reminder
 const args = process.argv.slice(2);
@@ -25,12 +38,11 @@ function list(){
     const lines = fs.readFileSync(reminderFile, 'utf8').split('\n');
     const parsedLines = lines.map(line => line.split("|"));
     const humanFriendlyLines = parsedLines.map(parsedLine => {
-        const reminder = parsedLine[0];
-        const date = parsedLine[1];
-        return `-      ${reminder}      Due: ${date}`;    
-    });
-    const output = humanFriendlyLines.join('\n');
-    console.log(output);
+    const reminder = new Reminder(parsedLine[0], parsedLine[1]);
+    return reminder.toString();
+});
+const output = humanFriendlyLines.join('\n');
+console.log(output);
 }
 
 console.log("Completed your request.");
