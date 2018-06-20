@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Bdemers1055/reminder-shenanigans/issues"
   },
-  "homepage": "https://github.com/Bdemers1055/reminder-shenanigans#readme"
+  "homepage": "https://github.com/Bdemers1055/reminder-shenanigans#readme",
+  "dependencies": {
+    "chalk": "^2.4.1"
+  }
 }
