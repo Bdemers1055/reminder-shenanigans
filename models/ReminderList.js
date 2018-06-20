@@ -4,13 +4,10 @@ const Reminder = require('./Reminder');
 class ReminderList {
     constructor(filepath){
         this.filepath = filepath;
-        const lines = fs.readFileSync(this.filepath, 'utf8').split('\n');
-        const parsedLines = lines.map(line => line.split("|"));
-        const humanFriendlyLines = parsedLines.map(parsedLine => {
-            const reminder = new Reminder(parsedLine[0], parsedLine[1]);
-            return reminder;
-    });
-    this.reminders = humanFriendlyLines;
+        this.reminders = fs.readFileSync(this.filepath, 'utf8')
+                        .split('\n')
+                        .map((line) => line.split('|'))
+                        .map((parsedLine) => new Reminder(parsedLine[0], parsedLine[1]));
 }
 
 add(reminder){
@@ -18,14 +15,16 @@ add(reminder){
 }
 
 toFileOutput(){
-    const fileString = this.reminders.map((reminder) => reminder.toFileString());
-    const output = fileString.join('\n');
+    const output = this.reminders
+                        .map((reminder) => reminder.toFileString())
+                        .join('\n');
     return output;
 }
 
 toConsole(){
-    const reminderStrings = this.reminders.map((reminder) => reminder.toString());
-    const output = reminderStrings.join('\n');
+    const output = this.reminders
+                        .map((reminder) => reminder.toString())
+                        .join('\n');
     console.log(output);
 }
 }
