@@ -1,12 +1,4 @@
 
-const fs = require('fs'); //this tells node that we need this module (set of functions and attributes)
-
-const Reminder = require('./models/Reminder');
-const ReminderList = require('./models/ReminderList');
-
-const config = require('./config');
-const reminderFile = config.reminderFile;
-
 // list command where all the reminders are printed
 // add a command where we can add a reminder
 const list = require('./commands/list');
