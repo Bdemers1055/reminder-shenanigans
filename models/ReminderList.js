@@ -15,14 +15,16 @@ add(reminder){
 }
 
 toFileOutput(){
-    const fileString = this.reminders.map((reminder) => reminder.toFileString());
-    const output = fileString.join('\n');
+    const output = this.reminders
+                        .map((reminder) => reminder.toFileString())
+                        .join('\n');
     return output;
 }
 
 toConsole(){
-    const reminderStrings = this.reminders.map((reminder) => reminder.toString());
-    const output = reminderStrings.join('\n');
+    const output = this.reminders
+                        .map((reminder) => reminder.toString())
+                        .join('\n');
     console.log(output);
 }
 }
