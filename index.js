@@ -11,6 +11,7 @@ const reminderFile = config.reminderFile;
 // add a command where we can add a reminder
 const list = require('./commands/list');
 const add = require('./commands/add');
+const help = require('./commands/help');
 
 const args = process.argv.slice(2);
 const subcommand = args[0];
@@ -25,7 +26,3 @@ if(subcommand === 'list'){
 
 console.log("Completed your request.");
 process.exit(0);
-
-function help(){
-    console.log('Something went wrong. Please check you syntax.');
-}
