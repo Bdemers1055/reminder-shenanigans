@@ -1,19 +1,22 @@
 
 // templates of objects
 const chalk = require('chalk');
+const moment = require('moment');
+const { dateFormat } = require('../config'); 
+
 class Reminder {
     constructor(inputText, inputDueDate){
         this.text = inputText;
-        this.dueDate = inputDueDate;
+        this.dueDate = moment(inputDueDate);
     }
 
     toString(){
             const dueLabel = chalk.bgRed.white("Due")
-            return`-   ${chalk.green(this.text)}    ${dueLabel} ${chalk.red(this.dueDate)}`;
+            return`-   ${chalk.green(this.text)}    ${dueLabel} ${chalk.red(this.dueDate.format(dateFormat))}`;
     }
     
     toFileString(){
-        return`${this.text}|${this.dueDate}`;
+        return`${this.text}|${this.dueDate.format(dateFormat)}`;
     }
 }
  module.exports = Reminder;
