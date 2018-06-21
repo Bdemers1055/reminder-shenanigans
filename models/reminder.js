@@ -2,7 +2,7 @@
 // templates of objects
 const chalk = require('chalk');
 const moment = require('moment');
-const { dateFormat } = require('../config'); 
+const { dateFormat, padding } = require('../config'); 
 
 class Reminder {
     constructor(inputText, inputDueDate){
@@ -12,7 +12,7 @@ class Reminder {
 
     toString(){
             const dueLabel = chalk.bgRed.white("Due")
-            return`-   ${chalk.green(this.text)}    ${dueLabel} ${chalk.red(this.dueDate.format(dateFormat))}`;
+            return`-${chalk.green(this.text).padEnd(padding)}${dueLabel} ${chalk.red(this.dueDate.format(dateFormat))}`;
     }
     
     toFileString(){
