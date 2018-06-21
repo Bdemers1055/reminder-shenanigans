@@ -5,6 +5,13 @@ const list = require('./commands/list');
 const add = require('./commands/add');
 const help = require('./commands/help');
 
+const fs = require('fs')
+const { reminderFile } = require('./config')
+
+if(!fs.existsSync(reminderFile)){
+    fs.openSync(reminderFile, 'a');
+}
+
 const args = process.argv.slice(2);
 const subcommand = args[0];
 if(subcommand === 'list'){

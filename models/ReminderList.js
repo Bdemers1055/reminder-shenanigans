@@ -8,6 +8,7 @@ class ReminderList {
         this.filepath = filepath;
         this.reminders = fs.readFileSync(this.filepath, 'utf8')
                         .split('\n')
+                        .filter(line => line !== '')
                         .map((line) => line.split('|'))
                         .map((parsedLine) => 
                             new Reminder(parsedLine[0], moment(parsedLine[1], dateFormat)));
