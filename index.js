@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 
 // list command where all the reminders are printed
 // add a command where we can add a reminder
